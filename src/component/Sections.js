@@ -2,22 +2,25 @@ import React from 'react'
 import styled from 'styled-components'
 
 
-const Sections = () => {
+const Sections = (props) => {
+    console.log("props", props)
     return (
-        <Wrap>
+        <Wrap bgImg={props.backgroundImg}>
             <ItemText>
-                <h1>Model S</h1>
-                <p>Order online for Touchless delivery</p>
+                <h1>{props.title}</h1>
+                <p>{props.description}</p>
             </ItemText>
             <Buttons>
                 <ButtonGroup>
                     <LeftButton>
-                        Custom Order
+                        {props.leftBtnText}
                     </LeftButton>
+                    {props.rightBtnText && 
                     <RightButton>
-                        Existing Inventory
-                    </RightButton>
-                </ButtonGroup>
+                        {props.rightBtnText}
+                    </RightButton>}
+
+                 </ButtonGroup>
                 <DownArrow src="/images/down-arrow.svg" />
             </Buttons>
 
@@ -33,12 +36,14 @@ height:100vh;
 background-size:cover;
 background-position:center;
 background-repeat:no-repeat;
-background-image: url('/images/model-s.jpg');
-
+// background-color: #cccccc;
+// background-image: url("/images/model-s.jpg");
+ 
 display:flex;
 flex-direction:column;
 justify-content:space-between;
 align-items:center;
+background-image: ${props => `url(${props.bgImg})`};
 
 `
 const ItemText = styled.div`
@@ -51,6 +56,9 @@ padding-top:15vh;
 const ButtonGroup = styled.div`
 display:flex;
 margin-bottom:30px;
+@media (max-width:768px) {
+    flex-direction:column;
+}
 `
 const LeftButton = styled.div`
 background-color:rgba(24,26,32,0.8);
@@ -68,6 +76,9 @@ cursor:pointer;
 margin:8px;
 `
 const RightButton = styled(LeftButton)`
+background:white;
+opacity:0.65;
+color:black;
 `
 
 const DownArrow = styled.img`
