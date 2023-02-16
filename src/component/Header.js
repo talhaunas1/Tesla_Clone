@@ -4,7 +4,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 
 const Header = () => {
-  const [sideBarState, setSideBarState] = useState(flase)
+  const [sideBarState, setSideBarState] = useState(false)
+  console.log("sidebar", sideBarState)
   return (
     <Container>
       <a>
@@ -20,27 +21,26 @@ const Header = () => {
       <RightMenu>
         <a href="">Shop</a>
         <a href="">Tesla Account</a>
-        <CustomMenu />
+        <CustomMenu onClick={() => setSideBarState(true)} />
       </RightMenu>
 
-      <BurerNav>
-
-        <CloseWrapper>
-          <CustomClose onClick={()=>setSideBarState(true)}/>
+      <SideBar show={sideBarState}>
+        <CloseWrapper >
+          <CustomClose onClick={() => setSideBarState(false)} />
         </CloseWrapper>
 
+        <li> <a href="#">Model S</a> </li>
+        <li> <a href="#">Model 3</a> </li>
+        <li> <a href="#">Model x</a> </li>
         <li> <a href="#">Existing Inventory</a> </li>
         <li> <a href="#">Use Inventory</a> </li>
         <li> <a href="#">Trade-in</a> </li>
-        <li> <a href="#">Cybertruck</a> </li>
-        <li> <a href="#">Roadster</a> </li>
-        <li> <a href="#">Semi</a> </li>
+        
         <li> <a href="#">Charging</a> </li>
         <li> <a href="#">Power</a> </li>
-        <li> <a href="#">dont KNow</a> </li>
         <li> <a href="#">Utilities</a> </li>
         <li> <a href="#">Test Drive</a> </li>
-      </BurerNav>
+      </SideBar>
     </Container>
   )
 }
@@ -92,7 +92,7 @@ cursor:pointer;
 `
 
 
-const BurerNav = styled.div`
+const SideBar = styled.div`
 position:fixed;
 top:0;
 bottom:0;
@@ -105,7 +105,8 @@ padding:20px;
 display:flex;
 flex-direction:column;
 text-align:start;
-
+transform: ${props => props.show ? "translateX(0)" : "translateX(100%)"};
+transition : transform 0.5s;
 li{
   padding:15px 0;
   border-bottom:1px solid rgba(0,0,0,.2);
